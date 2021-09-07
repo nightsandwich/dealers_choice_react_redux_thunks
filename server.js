@@ -1,5 +1,4 @@
 const express = require('express');
-const { userInfo } = require('os');
 const { static } = express;
 const path = require('path');
 
@@ -64,15 +63,26 @@ app.post('/api/venues', async(req, res, next)=> {
     }
   });
 
-  app.delete('/api/venues/:id', async(req, res, next) =>{
-    try{
-      const venue = await Venue.findByPk(req.params.id);
-      res.send(await venue.destroy());
-    }
-    catch(ex){
-      next(ex);
-    }
-  })
+app.delete('/api/venues/:id', async(req, res, next) =>{
+  try{
+    const venue = await Venue.findByPk(req.params.id);
+    res.send(await venue.destroy());
+  }
+  catch(ex){
+    next(ex);
+  }
+});
+
+app.put('/api/venues/:id', async(req, res, next) => {
+  try{
+    const venue = await Venue.findByPk(req.params.id);
+    await venue.update(req.body);
+    res.send(venue);
+  }
+  catch(ex){
+    next(ex);
+  }
+})
 
 const init = async()=> {
   try {
@@ -86,7 +96,7 @@ const init = async()=> {
 };
 
 const Sequelize = require('sequelize');
-const { STRING, ENUM } = Sequelize;
+const { STRING, ENUM, BOOLEAN } = Sequelize;
 const conn = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost/dealers_choice_redux_db');
 
 const Venue = conn.define('venue', {
@@ -101,6 +111,10 @@ const Venue = conn.define('venue', {
   website: {
     type: STRING,
     defaultValue: 'https://www.yelp.com/'//need to insert
+  },
+  visited: {
+    type: BOOLEAN,
+    defaultValue: false,
   }
 });
 

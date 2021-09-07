@@ -1,11 +1,11 @@
 import { connect } from "react-redux";
 import React from "react";
-import {deleteVenue} from './store';
+import {deleteVenue, visited} from './store';
 
 import Create from "./Create";
 
 
-const Venues = ({venues, deleteVenue}) => {
+const Venues = ({venues, deleteVenue, visited}) => {
     return (
         <div>
             <Create />
@@ -14,7 +14,7 @@ const Venues = ({venues, deleteVenue}) => {
                 venues.map( venue => { 
                     return (
                         <li key={ venue.id }>
-                            { venue.name }
+                            { venue.name } <input type="checkbox" defaultChecked={venue.visited} onChange={()=>visited(venue)}/>
                             <button onClick={()=>deleteVenue(venue.id)}>DELETE</button>
                             <div>
                                 <a href={venue.website}>Website</a>
@@ -36,7 +36,8 @@ const Venues = ({venues, deleteVenue}) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        deleteVenue: venueId => dispatch(deleteVenue(venueId))
+        deleteVenue: venueId => dispatch(deleteVenue(venueId)),
+        visited: venue => dispatch(visited(venue))
     }
 }
 

@@ -4,6 +4,7 @@ const LOAD_NEIGHBORHOODS = 'LOAD_NEIGHBORHOODS';
 const SET_VIEW = 'SET_VIEW';
 const CREATE = 'CREATE';
 const DELETE = 'DELETE';
+const VISITED = 'VISITED';
 
 import axios from 'axios';
 import thunk from 'redux-thunk';
@@ -17,7 +18,12 @@ const venuesReducer = (state = [], action) => {
         state = [...state, action.venue]
     }
     if(action.type === DELETE){
-        state = [...state].filter(venue => venue.id !== action.venueId)
+        state = state.filter(venue => venue.id !== action.venueId)
+    }
+    if(action.type === VISITED){
+        state = state.map(venue =>
+            venue.id === action.venue.id ? action.venue : venue
+        );
     }
     return state;
 }
@@ -79,6 +85,19 @@ const deleteVenue = (venueId) => {
     }
 }
 
+const _visited = venue => {
+    return {
+        type: VISITED,
+        venue
+    }
+}
+
+const visited = venue => {
+    return async(dispatch) => {
+        const updated = (await axios.put(`/api/venues/${venue.id}`, {visited: !venue.visited })).data;
+        dispatch(_visited(updated));
+    }
+}
 
 export default store;
-export {loadVenues, loadNeighborhoods, setView, create, deleteVenue};
+export {loadVenues, loadNeighborhoods, setView, create, deleteVenue, visited};
