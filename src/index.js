@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import axios from 'axios';
 
 import {Provider, connect} from 'react-redux';
 import store, {loadVenues, loadNeighborhoods, setView } from './store';
 import Nav from './Nav';
-import Venues from './Venues';
+import FilteredVenues from './FilteredVenues';
 import Neighborhoods from './Neighborhoods';
 
 class _App extends Component{
@@ -13,6 +12,8 @@ class _App extends Component{
         this.props.bootstrap();
         window.addEventListener('hashchange', ()=> {
             this.props.setView(window.location.hash.slice(1));
+            //console.log(window.location.hash.slice(1));
+            //console.log(this.props.view);
         });
         this.props.setView(window.location.hash.slice(1));
     }
@@ -22,8 +23,7 @@ class _App extends Component{
         return (
             <div>
                 <Nav />
-                {view === 'venues' && <Venues />}
-                {view === 'neighborhoods' && <Neighborhoods />}
+                {view === 'neighborhoods' ? <Neighborhoods /> : <FilteredVenues />}
             </div>
         );
     }

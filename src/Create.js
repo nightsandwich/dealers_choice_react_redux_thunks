@@ -14,8 +14,8 @@ class Create extends Component{
     const { name, neighborhoodId } = this.state;
     
     return (
-      <form>
-          ADD NEW VENUE
+      <form id='create'>
+          <h3>ADD NEW VENUE</h3>
           <br></br>
         <label className='label'>Name</label>
         <input value={ name } onChange={ ev => this.setState({ name: ev.target.value})}/>

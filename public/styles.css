@@ -1,21 +1,45 @@
 img {
-    max-width: 200px;
     max-height: 200px;
 }
-* {
+body {
     font-family: verdana;
+    background-color: rgb(28, 167, 167);
+}
+a:hover {
+    color: rgb(0, 102, 255);
+    background-color: rgb(217, 255, 80);
+}
+.visited{
+    border: 1px solid black;
+    font-style: italic;
+}
+.visited:hover {
+    background-color: rgb(217, 255, 80); 
 }
 h3{
     margin: 0;
+    font-weight: bold;
 }
-li{
+button{
+    background-color: rgb(217, 255, 80); 
+}
+
+.venues > ul {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.venues li{
     margin: 1em;
     border: 1px solid black;
-    list-style: none;
+    list-style: none;    
+}
+li > * {
+    background-color: rgb(255, 62, 14);
 }
 form{
     border: 1px solid black;
-    padding: 1em;
+    padding: .25em;
 }
 nav{
     display: flex;
