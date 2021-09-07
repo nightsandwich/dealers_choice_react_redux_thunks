@@ -3,8 +3,7 @@ img {
 }
 body {
     font-family: verdana;
-    
-    background-image: url('brooklyn.jpg');
+    background-color: teal;
 }
 a:hover {
     color: rgb(0, 102, 255);
@@ -41,8 +40,8 @@ button{
     display: flex;
     flex-direction: column;
     align-items: center;
-
 }
+
 .neighborhoods > li {
     background-color: rgba(90, 177, 10, 0.808);  
     border: 1px solid black;

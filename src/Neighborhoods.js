@@ -26,6 +26,7 @@ const Neighborhoods = ({neighborhoods}) => {
                 })
             }
             </ul>
+            
         </div>
     );
 }
