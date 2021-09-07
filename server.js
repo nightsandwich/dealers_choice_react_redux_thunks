@@ -120,7 +120,8 @@ const conn = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost/dea
 const Venue = conn.define('venue', {
   name: {
     type: STRING,
-    allowNull: false
+    allowNull: false,
+    unique: true
   },
   imageUrl: {
     type: STRING,

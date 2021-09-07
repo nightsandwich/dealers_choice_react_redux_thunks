@@ -4,7 +4,7 @@ import { render } from 'react-dom';
 import {Provider, connect} from 'react-redux';
 import store, {loadVenues, loadNeighborhoods, setView } from './store';
 import Nav from './Nav';
-import FilteredVenues from './FilteredVenues';
+import Venues from './Venues';
 import Neighborhoods from './Neighborhoods';
 
 class _App extends Component{
@@ -23,7 +23,7 @@ class _App extends Component{
         return (
             <div>
                 <Nav />
-                {view === 'neighborhoods' ? <Neighborhoods /> : <FilteredVenues />}
+                {view === 'neighborhoods' ? <Neighborhoods /> : <Venues />}
             </div>
         );
     }
