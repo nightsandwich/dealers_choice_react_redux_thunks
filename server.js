@@ -18,7 +18,7 @@ app.get('/api/venues', async(req, res, next)=> {
         }
       ],
       order: [
-          ['name']
+          ['name', 'ASC']
       ]
     }));
   }
@@ -36,7 +36,7 @@ app.get('/api/neighborhoods', async(req, res, next)=> {
           }
       ],
       order: [
-        ['name']
+        ['name', 'ASC']
       ]
     }));
   }
@@ -65,6 +65,18 @@ app.post('/api/venues', async(req, res, next)=> {
       next(ex);
     }
   });
+
+app.post('/api/neighborhoods', async(req, res, next)=> {
+  try {
+    //console.log('reqbody:',req.body);
+    const neighborhood = await Neighborhood.create(req.body);
+    //console.log(venue);
+    res.status(201).send(neighborhood);
+  }
+  catch(ex){
+    next(ex);
+  }
+});
 
 app.delete('/api/venues/:id', async(req, res, next) =>{
   try{
@@ -102,7 +114,7 @@ const init = async()=> {
 };
 
 const Sequelize = require('sequelize');
-const { STRING, ENUM, BOOLEAN } = Sequelize;
+const { STRING, BOOLEAN } = Sequelize;
 const conn = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost/dealers_choice_redux_db');
 
 const Venue = conn.define('venue', {
@@ -112,7 +124,7 @@ const Venue = conn.define('venue', {
   },
   imageUrl: {
     type: STRING,
-    defaultValue: ''
+    defaultValue: 'stock.png'
   },
   website: {
     type: STRING,
@@ -126,7 +138,7 @@ const Venue = conn.define('venue', {
 
 const Neighborhood = conn.define('neighborhood', {
   name: {
-      type: ENUM('Williamsburg','Greenpoint', 'Bed-Stuy', 'Bushwick', 'Crown Heights', 'Brighton Beach')
+      type: STRING
   }
 })
 

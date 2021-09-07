@@ -12,13 +12,11 @@ const App = connect(
     state => state,
     (dispatch)=> {
         return{
-            bootstrap: async()=> {
-                const venues =  (await (axios.get('/api/venues'))).data;
-                dispatch(loadVenues(venues));
-                const neighborhoods =  (await (axios.get('/api/neighborhoods'))).data;
-                dispatch(loadNeighborhoods(neighborhoods));
+            bootstrap: ()=> {
+                dispatch(loadVenues());
+                dispatch(loadNeighborhoods());
             },
-            setView: function(view){
+            setView: (view) => {
                 dispatch(setView(view));
             }
         };
@@ -35,7 +33,6 @@ const App = connect(
     const { view } = this.props;
     return (
         <div>
-            {view}
             <Nav />
             {view === 'venues' && <Venues />}
             {view === 'neighborhoods' && <Neighborhoods />}

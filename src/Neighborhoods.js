@@ -1,9 +1,11 @@
 import { connect } from "react-redux";
 import React from "react";
+import NewHood from "./NewHood";
 
 const Neighborhoods = ({neighborhoods}) => {
     return (
         <div>
+            <NewHood />
             <ul>
             {
                 neighborhoods.map( neighborhood => { 

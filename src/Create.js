@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import {create} from './store';
 
 class Create extends Component{
@@ -8,13 +7,16 @@ class Create extends Component{
     super(props);
     this.state = {
       name: '',
-      neighborhoodId: ''
+      neighborhoodId: 1
     };
   }
   render(){
     const { name, neighborhoodId } = this.state;
+    
     return (
       <form>
+          ADD NEW VENUE
+          <br></br>
         <label className='label'>Name</label>
         <input value={ name } onChange={ ev => this.setState({ name: ev.target.value})}/>
         <br></br>
@@ -33,8 +35,8 @@ class Create extends Component{
             })
             }
         </select>
-        
-        <button onClick={()=> this.props.create(name, neighborhoodId)}>Create</button>
+        <br></br>
+        <button onClick={()=> this.props.create(name, neighborhoodId)}>ADD</button>
       </form>
     );
   }
@@ -42,13 +44,10 @@ class Create extends Component{
 
 const mapDispatchToProps = (dispatch)=> {
   return {
-    create: async(name, neighborhoodId)=> {
-      console.log(name, neighborhoodId);
-      
-      const venue = (await axios.post('/api/venues', { name, neighborhoodId })).data;
-      console.log(venue);
-      dispatch(create(venue));
-    }
+    create: 
+      (name, neighborhoodId)=> {
+          dispatch(create(name, neighborhoodId))
+      }
   };
 }
 

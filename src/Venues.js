@@ -14,8 +14,10 @@ const Venues = ({venues, deleteVenue, visited}) => {
                 venues.map( venue => { 
                     return (
                         <li key={ venue.id }>
-                            { venue.name } <input type="checkbox" defaultChecked={venue.visited} onChange={()=>visited(venue)}/>
-                            <button onClick={()=>deleteVenue(venue.id)}>DELETE</button>
+                            <h3>{ venue.name } <button onClick={()=>deleteVenue(venue.id)}>DELETE</button></h3>
+                            <br></br>
+                            <label>Visited?</label>
+                            <input type="checkbox" defaultChecked={venue.visited} onChange={()=>visited(venue)}/>
                             <div>
                                 <a href={venue.website}>Website</a>
                             </div>
