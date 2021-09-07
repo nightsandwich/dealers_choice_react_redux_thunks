@@ -66,10 +66,16 @@ const create = (venue) => {
         venue
     }
 }
-const deleteVenue = (venueId) => {
+const _deleteVenue = (venueId) => {
     return {
         type: DELETE,
         venueId
+    }
+}
+const deleteVenue = (venueId) => {
+    return async (dispatch) => {
+        await axios.delete(`/api/venues/${venueId}`);
+        dispatch(_deleteVenue(venueId));
     }
 }
 

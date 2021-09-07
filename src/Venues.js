@@ -3,7 +3,7 @@ import React from "react";
 import {deleteVenue} from './store';
 
 import Create from "./Create";
-import axios from "axios";
+
 
 const Venues = ({venues, deleteVenue}) => {
     return (
@@ -36,10 +36,7 @@ const Venues = ({venues, deleteVenue}) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        deleteVenue: async(venueId) => {
-            await axios.delete(`/api/venues/${venueId}`);
-            dispatch(deleteVenue(venueId));
-        }
+        deleteVenue: venueId => dispatch(deleteVenue(venueId))
     }
 }
 
