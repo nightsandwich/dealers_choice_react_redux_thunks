@@ -16,10 +16,10 @@ const venuesReducer = (state = [], action) => {
         state = action.venues;
     }
     if(action.type === CREATE){
-        state = [action.venue];
+        state = [...state, action.venue];
     }
     if(action.type === DELETE){
-        state = state.filter(venue => venue.id !== action.venueId)
+        state = state.filter(venue => venue.id !== action.venue.id)
     }
     if(action.type === VISITED){
         state = state.map(venue =>
@@ -88,33 +88,31 @@ const _create = (venue) => {
         venue
     }
 }
-const create = (name, neighborhoodId) => {
+const create = (name, neighborhoodId, website, imageUrl) => {
     return async(dispatch) => {
-        const venue = (await axios.post('/api/venues', { name, neighborhoodId })).data;
+        const venue = (await axios.post('/api/venues', { name, neighborhoodId, website, imageUrl })).data;
         dispatch(_create(venue));
-        dispatch(loadVenues());
+        
     }
 }
-const _deleteVenue = (venueId) => {
+const _deleteVenue = (venue) => {
     return {
         type: DELETE,
-        venueId
+        venue
     }
 }
-const deleteVenue = (venueId) => {
+const deleteVenue = (venue) => {
     return async (dispatch) => {
-        await axios.delete(`/api/venues/${venueId}`);
-        dispatch(_deleteVenue(venueId));
+        await axios.delete(`/api/venues/${venue.id}`);
+        dispatch(_deleteVenue(venue));
     }
 }
-
 const _visited = venue => {
     return {
         type: VISITED,
         venue
     }
 }
-
 const visited = venue => {
     return async(dispatch) => {
         const updated = (await axios.put(`/api/venues/${venue.id}`, {visited: !venue.visited })).data;

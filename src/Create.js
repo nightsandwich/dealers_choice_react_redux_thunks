@@ -7,11 +7,13 @@ class Create extends Component{
     super(props);
     this.state = {
       name: '',
-      neighborhoodId: 1
+      neighborhoodId: 1,
+      website: '',
+      imageUrl: ''
     };
   }
   render(){
-    const { name, neighborhoodId } = this.state;
+    const { name, neighborhoodId, website, imageUrl } = this.state;
     
     return (
       <form id='create'>
@@ -36,7 +38,13 @@ class Create extends Component{
             }
         </select>
         <br></br>
-        <button onClick={()=> this.props.create(name, neighborhoodId)}>ADD</button>
+        <label className='label'>Website</label>
+        <input value={ website } onChange={ ev => this.setState({ website: ev.target.value})}/>
+        <br></br>
+        <label className='label'>Image URL</label>
+        <input value={ imageUrl } onChange={ ev => this.setState({ imageUrl: ev.target.value})}/>
+        <br></br>
+        <button onClick={()=> this.props.create(name, neighborhoodId, website ? website : 'https://www.yelp.com', imageUrl ? imageUrl : 'stock.png')}>ADD</button>
       </form>
     );
   }
@@ -45,8 +53,8 @@ class Create extends Component{
 const mapDispatchToProps = (dispatch)=> {
   return {
     create: 
-      (name, neighborhoodId)=> {
-          dispatch(create(name, neighborhoodId))
+      (name, neighborhoodId, website, imageUrl)=> {
+          dispatch(create(name, neighborhoodId, website, imageUrl))
       }
   };
 }

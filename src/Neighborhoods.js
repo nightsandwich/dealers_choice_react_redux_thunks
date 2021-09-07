@@ -4,7 +4,7 @@ import NewHood from "./NewHood";
 
 const Neighborhoods = ({neighborhoods}) => {
     return (
-        <div>
+        <div className='venues'>
             <NewHood />
             <ul className='neighborhoods'>
             {

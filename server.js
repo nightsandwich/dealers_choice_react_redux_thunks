@@ -81,7 +81,8 @@ app.post('/api/neighborhoods', async(req, res, next)=> {
 app.delete('/api/venues/:id', async(req, res, next) =>{
   try{
     const venue = await Venue.findByPk(req.params.id);
-    res.send(await venue.destroy());
+    await venue.destroy();
+    res.sendStatus(204);
   }
   catch(ex){
     next(ex);
@@ -94,6 +95,7 @@ app.put('/api/venues/:id', async(req, res, next) => {
     //console.log(venue);
     //console.log('reqbody:',req.body);
     await venue.update(req.body);
+    await venue.save();
     //console.log(venue);
     res.send(venue);
   }
