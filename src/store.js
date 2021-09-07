@@ -3,6 +3,7 @@ const LOAD_VENUES = 'LOAD_VENUES';
 const LOAD_NEIGHBORHOODS = 'LOAD_NEIGHBORHOODS';
 const SET_VIEW = 'SET_VIEW';
 const CREATE = 'CREATE';
+const DELETE = 'DELETE';
 
 import axios from 'axios';
 import thunk from 'redux-thunk';
@@ -14,6 +15,9 @@ const venuesReducer = (state = [], action) => {
     }
     if(action.type === CREATE){
         state = [...state, action.venue]
+    }
+    if(action.type === DELETE){
+        state = [...state].filter(venue => venue.id !== action.venueId)
     }
     return state;
 }
@@ -62,7 +66,13 @@ const create = (venue) => {
         venue
     }
 }
+const deleteVenue = (venueId) => {
+    return {
+        type: DELETE,
+        venueId
+    }
+}
 
 
 export default store;
-export {loadVenues, loadNeighborhoods, setView, create};
+export {loadVenues, loadNeighborhoods, setView, create, deleteVenue};

@@ -1,4 +1,5 @@
 const express = require('express');
+const { userInfo } = require('os');
 const { static } = express;
 const path = require('path');
 
@@ -63,6 +64,15 @@ app.post('/api/venues', async(req, res, next)=> {
     }
   });
 
+  app.delete('/api/venues/:id', async(req, res, next) =>{
+    try{
+      const venue = await Venue.findByPk(req.params.id);
+      res.send(await venue.destroy());
+    }
+    catch(ex){
+      next(ex);
+    }
+  })
 
 const init = async()=> {
   try {

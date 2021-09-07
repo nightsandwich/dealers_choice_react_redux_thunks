@@ -1,13 +1,11 @@
 import { connect } from "react-redux";
 import React from "react";
-import {createUser} from './store';
-import axios from "axios";
-import { loadVenue, createNote } from "./store";
-import Create from "./Create";
-import { async } from "regenerator-runtime";
-import { map } from "lodash";
+import {deleteVenue} from './store';
 
-const Venues = ({venues}) => {
+import Create from "./Create";
+import axios from "axios";
+
+const Venues = ({venues, deleteVenue}) => {
     return (
         <div>
             <Create />
@@ -17,6 +15,7 @@ const Venues = ({venues}) => {
                     return (
                         <li key={ venue.id }>
                             { venue.name }
+                            <button onClick={()=>deleteVenue(venue.id)}>DELETE</button>
                             <div>
                                 <a href={venue.website}>Website</a>
                             </div>
@@ -35,5 +34,13 @@ const Venues = ({venues}) => {
     );
 }
 
+const mapDispatchToProps = dispatch => {
+    return {
+        deleteVenue: async(venueId) => {
+            await axios.delete(`/api/venues/${venueId}`);
+            dispatch(deleteVenue(venueId));
+        }
+    }
+}
 
-export default connect(state => state)(Venues);
+export default connect(state => state, mapDispatchToProps)(Venues);
