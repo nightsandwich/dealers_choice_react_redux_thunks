@@ -6,13 +6,13 @@ const Neighborhoods = ({neighborhoods}) => {
     return (
         <div>
             <NewHood />
-            <ul>
+            <ul className='neighborhoods'>
             {
                 neighborhoods.map( neighborhood => { 
                     return (
-                        <li key={ neighborhood.id }>
+                        <li key={ neighborhood.id } >
                             { neighborhood.name }
-                            <ul>
+                            <ul className='venueslist'>
                                 {neighborhood.venues.map(venue => {
                                     return (
                                         <li key={venue.id}>

@@ -23,19 +23,27 @@ h3{
 button{
     background-color: rgb(217, 255, 80); 
 }
-
 .venues > ul {
     display: flex;
     flex-wrap: wrap;
 }
-
 .venues li{
     margin: 1em;
     border: 1px solid black;
     list-style: none;    
 }
-li > * {
-    background-color: rgb(255, 62, 14);
+.venues li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(255, 14, 163); 
+}
+.neighborhoods > li {
+    background-color: rgb(255, 14, 163); 
+    border: 1px solid black;
+}
+.venueslist {
+    background-color: rgba(14, 227, 255, 0.404); ;
 }
 form{
     border: 1px solid black;
