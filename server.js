@@ -56,7 +56,10 @@ app.get('/api/neighborhoods/:id', async(req, res, next)=> {
 
 app.post('/api/venues', async(req, res, next)=> {
     try {
-      res.status(201).send(await Venue.create(req.body));
+      //console.log('reqbody:',req.body);
+      const venue = await Venue.create(req.body);
+      //console.log(venue);
+      res.status(201).send(venue);
     }
     catch(ex){
       next(ex);
@@ -76,7 +79,10 @@ app.delete('/api/venues/:id', async(req, res, next) =>{
 app.put('/api/venues/:id', async(req, res, next) => {
   try{
     const venue = await Venue.findByPk(req.params.id);
+    //console.log(venue);
+    //console.log('reqbody:',req.body);
     await venue.update(req.body);
+    //console.log(venue);
     res.send(venue);
   }
   catch(ex){

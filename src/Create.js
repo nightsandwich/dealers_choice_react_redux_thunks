@@ -8,11 +8,11 @@ class Create extends Component{
     super(props);
     this.state = {
       name: '',
-      neighborhood: ''
+      neighborhoodId: ''
     };
   }
   render(){
-    const { name, neighborhood } = this.state;
+    const { name, neighborhoodId } = this.state;
     return (
       <form>
         <label className='label'>Name</label>
@@ -22,7 +22,7 @@ class Create extends Component{
             Neighborhood
         </label>
         
-        <select value={neighborhood} onChange={ev => this.setState({neighborhood: ev.target.value})}>
+        <select value={neighborhoodId} onChange={ev => this.setState({neighborhoodId: ev.target.value})}>
             {
             this.props.neighborhoods.map( neighborhood => { 
                 return (
@@ -34,7 +34,7 @@ class Create extends Component{
             }
         </select>
         
-        <button onClick={()=> this.props.create(name, neighborhood)}>Create</button>
+        <button onClick={()=> this.props.create(name, neighborhoodId)}>Create</button>
       </form>
     );
   }
@@ -42,10 +42,10 @@ class Create extends Component{
 
 const mapDispatchToProps = (dispatch)=> {
   return {
-    create: async(name, neighborhood)=> {
-      console.log(name, neighborhood);
+    create: async(name, neighborhoodId)=> {
+      console.log(name, neighborhoodId);
       
-      const venue = (await axios.post('/api/venues', { name, neighborhood })).data;
+      const venue = (await axios.post('/api/venues', { name, neighborhoodId })).data;
       console.log(venue);
       dispatch(create(venue));
     }

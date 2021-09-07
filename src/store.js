@@ -18,7 +18,7 @@ const venuesReducer = (state = [], action) => {
         state = [...state, action.venue]
     }
     if(action.type === DELETE){
-        state = state.filter(venue => venue.id !== action.venueId)
+        state = [...state].filter(venue => venue.id !== action.venueId)
     }
     if(action.type === VISITED){
         state = state.map(venue =>
