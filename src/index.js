@@ -8,37 +8,40 @@ import Nav from './Nav';
 import Venues from './Venues';
 import Neighborhoods from './Neighborhoods';
 
-const App = connect(
-    state => state,
-    (dispatch)=> {
-        return{
-            bootstrap: ()=> {
-                dispatch(loadVenues());
-                dispatch(loadNeighborhoods());
-            },
-            setView: (view) => {
-                dispatch(setView(view));
-            }
-        };
-    }
-)(class App extends Component{
-  componentDidMount(){
-      this.props.bootstrap();
-      window.addEventListener('hashchange', ()=> {
+class _App extends Component{
+    componentDidMount(){
+        this.props.bootstrap();
+        window.addEventListener('hashchange', ()=> {
+            this.props.setView(window.location.hash.slice(1));
+        });
         this.props.setView(window.location.hash.slice(1));
-    });
-    this.props.setView(window.location.hash.slice(1));
-  }
-  render(){
-    const { view } = this.props;
-    return (
-        <div>
-            <Nav />
-            {view === 'venues' && <Venues />}
-            {view === 'neighborhoods' && <Neighborhoods />}
-        </div>
-    );
-  }
-})
+    }
+
+    render(){
+        const { view } = this.props;
+        return (
+            <div>
+                <Nav />
+                {view === 'venues' && <Venues />}
+                {view === 'neighborhoods' && <Neighborhoods />}
+            </div>
+        );
+    }
+}
+
+const mapDispatchToProps = (dispatch)=> {
+    return{
+        bootstrap: ()=> {
+            dispatch(loadVenues());
+            dispatch(loadNeighborhoods());
+        },
+        setView: (view) => {
+            dispatch(setView(view));
+        }
+    };
+};
+
+const App = connect(state => state, mapDispatchToProps)(_App);
+
 
 render(<Provider store={store}><App /></Provider>, document.querySelector('#root'));
